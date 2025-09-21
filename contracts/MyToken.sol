@@ -8,12 +8,14 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 /// @notice 简单示例：部署时给部署者 mint 初始供应量（以 token 为单位）,并支持mint和burn
 contract MyToken is ERC20,Ownable {
     constructor(uint256 initialSupplyTokens) 
-    ERC20 ("MyToken","MIK")
-    Ownable(msg.sender)  // ⚡ 这里传入部署者
-    {
-        // decimals() 默认为 18，所以把传入的 token 数乘以 10**18
-        _mint(msg.sender,initialSupplyTokens*(10**uint256(decimals())));
-    }
+        ERC20 ("MyToken","MIK")
+        Ownable(msg.sender)  // ⚡ 这里传入部署者
+        {
+            // decimals() 默认为 18，所以把传入的 token 数乘以 10**18
+            _mint(msg.sender,initialSupplyTokens*(10**uint256(decimals())));
+        }
+
+
 
     /// @notice 增发 token，只能合约拥有者调用
     /// @param _to 接收地址
@@ -21,6 +23,8 @@ contract MyToken is ERC20,Ownable {
     function mint(address _to ,uint256 _amount) external onlyOwner {
         _mint(_to,_amount);
     }
+
+
 
     /// @notice 销毁 token，只能合约拥有者调用
     /// @param _from 销毁地址
